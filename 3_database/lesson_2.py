@@ -5,17 +5,26 @@ mydb = mysql.connector.connect(
     host="localhost",
     port="3306",
     user="root",
-    password=""
+    password="",
+    database="example"
 )
-print(mydb)
+
+# sql = "CREATE DATABASE example"
+# sql = "SHOW DATABASES"
+# sql = "CREATE TABLE users (name VARCHAR(255), age INTEGER(3))"
+sql = "SHOW TABLES"
 # Создане курсора для работы с БД
-# q = connection.cursor()
-#
+
+q = mydb.cursor()
+
 # try:
-#     q.execute('''CREATE TABLE user (id int auto_increment primary key, name varchar, password varchar)''')
+q.execute(sql)
+
+for el in q:
+    print(el)
 #     connection.commit()
 # except Exception:
-#     print("Таблица уже создана")
+#     print("База уже создана")
 #
 # user_name = input("Введите ваше имя: ")
 # user_password = input("Введите пароль: ")
@@ -32,5 +41,5 @@ print(mydb)
 #     row = q.fetchone()
 #
 # # Отключение от базы данных
-# q.close()
-# connection.close()
+q.close()
+mydb.close()
