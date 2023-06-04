@@ -11,14 +11,27 @@ mydb = mysql.connector.connect(
 
 # sql = "CREATE DATABASE example"
 # sql = "SHOW DATABASES"
-# sql = "CREATE TABLE users (name VARCHAR(255), age INTEGER(3))"
-sql = "SHOW TABLES"
-# Создане курсора для работы с БД
+# sql = "CREATE TABLE users (id INTEGER AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), age INTEGER(3), date_of_birth DATE)"
+sql = "INSERT INTO users (name, age, date_of_birth) VALUES (%s, %s, %s)"
+users = [
+    (
+        'Oleg',
+        '34',
+        '1988-11-25'
+    ),
+    (
+        'Vasua',
+        '31',
+        '1988-11-11'
+    ),
+]
 
+# Создане курсора для работы с БД
 q = mydb.cursor()
 
 # try:
-q.execute(sql)
+q.execute(sql, users)
+mydb.commit()
 
 for el in q:
     print(el)
